@@ -2,9 +2,23 @@
 #define TRIEHARD_HPP
 
 #include "concepts.hpp"
+#include <string>
+#include <vector>
 
-int test_add_five(int i) {
-	return i + 5;
-}
+struct node {
+	char id;
+	std::vector<node> neighbors;
+	int value;
+	
+	node() {}
+	node(const char& letter, const int& val) {
+		id = letter;
+		value = val;
+	}
+};
+
+struct trie {
+	node head = node(NULL,0);
+};
 
 #endif

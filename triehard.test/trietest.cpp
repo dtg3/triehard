@@ -3,8 +3,11 @@
 #include <iostream>
 
 void test_simple() {
-  if (not (test_add_five(4)) == 9)
-    throw failed;
+	trie test;
+	test.head = node(NULL, 0);
+	test.head.neighbors.push_back(node('k', 1));
+	if (not (test.head.neighbors[0].value == 1))
+		throw failed;
 }
 
 int main() {
