@@ -19,7 +19,7 @@ include_directories(.)
 # ---------------------------------------------------------------------------- #
 # Build
 
-# Add the eop library
+# Add the triehard library
 add_library(triehard triehard.cpp)
 
 # ---------------------------------------------------------------------------- #
@@ -29,7 +29,7 @@ add_library(triehard triehard.cpp)
 macro(add_unit_test mod file)
   set(tgt ${mod}.${file})
   add_executable(${tgt} ${mod}.test/${file}.cpp)
-  target_link_libraries(${tgt} eop)
+  target_link_libraries(${tgt} triehard)
   add_test(test.${tgt} ${tgt})
 endmacro()
 
