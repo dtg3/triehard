@@ -13,8 +13,7 @@ project(triehard CXX)
 enable_testing()
 
 # Compiler config
-#set(CMAKE_CXX_FLAGS "-Wall -std=c++1y")
-set(CMAKE_CXX_FLAGS "-Wall")
+set(CMAKE_CXX_FLAGS "-Wall -std=c++1y")
 include_directories(.)
 
 # ---------------------------------------------------------------------------- #
