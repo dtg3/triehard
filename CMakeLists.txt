@@ -20,7 +20,7 @@ include_directories(.)
 # Build
 
 # Add the eop library
-add_library(triehard)
+add_library(triehard triehard.cpp)
 
 # ---------------------------------------------------------------------------- #
 # Testing
@@ -34,7 +34,7 @@ macro(add_unit_test mod file)
 endmacro()
 
 # Add a test suite.
-add_unit_test()
+#add_unit_test()
 
 # ---------------------------------------------------------------------------- #
 # Submission
