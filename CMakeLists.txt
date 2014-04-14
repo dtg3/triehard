@@ -13,7 +13,8 @@ project(triehard CXX)
 enable_testing()
 
 # Compiler config
-set(CMAKE_CXX_FLAGS "-Wall -std=c++1y")
+#set(CMAKE_CXX_FLAGS "-Wall -std=c++1y")
+set(CMAKE_CXX_FLAGS "-Wall")
 include_directories(.)
 
 # ---------------------------------------------------------------------------- #
@@ -34,7 +35,7 @@ macro(add_unit_test mod file)
 endmacro()
 
 # Add a test suite.
-#add_unit_test()
+add_unit_test(triehard trietest)
 
 # ---------------------------------------------------------------------------- #
 # Submission
