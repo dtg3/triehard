@@ -34,7 +34,9 @@ macro(add_unit_test mod file)
 endmacro()
 
 # Add a test suite.
-add_unit_test(triehard trietest)
+add_unit_test(triehard init)
+add_unit_test(triehard insert_find)
+
 
 # ---------------------------------------------------------------------------- #
 # Submission
