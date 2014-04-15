@@ -3,12 +3,12 @@
 
 #include "concepts.hpp"
 #include <string>
-#include <vector>
+#include <map>
 
 struct trieNode {
 	char id;
 	int value;
-	std::vector<trieNode*> neighbors;
+	std::map<char, trieNode*> neighbors;
 	
 	trieNode() { id = 0; value = 0;}
 	trieNode(const char& letter, const int& val) {
