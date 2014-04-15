@@ -30,6 +30,15 @@ struct trie {
 		delete head;
 		delete current;
 	}
+
+	void add(const std::string word, const int& val) {}
+	void remove(const std::string word) {}
+	bool find(const std::string word) {
+		return true;
+	}
+	int& operator[] (const std::string word) {
+		return current->value;
+	}
 };
 
 #endif
