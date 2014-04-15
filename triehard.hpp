@@ -36,15 +36,11 @@ struct trie {
 		trieNode* start = head;
 		for (unsigned int i = 0; i < word.length(); ++i) {
 			std::map<char,trieNode*>::const_iterator search = start->neighbors.find(word[i]);
+    		
     		if(search == start->neighbors.end()) {
-    			std::cerr << "INSERT " << word[i] << "\n";
     			start->neighbors[word[i]] = new trieNode(word[i], 0);
     		}
-    		else {
-    			std::cerr << "FOUND " << word[i] << "\n";
-    		}
-
-    		std::cerr << "MOVE TO NEIGHBOR\n";
+    		
     		start = start->neighbors[word[i]];
 		}
 	}
