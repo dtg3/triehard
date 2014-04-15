@@ -5,20 +5,26 @@
 #include <string>
 #include <vector>
 
-struct node {
+struct trieNode {
 	char id;
-	std::vector<node> neighbors;
 	int value;
+	std::vector<trieNode*> neighbors;
 	
-	node() {}
-	node(const char& letter, const int& val) {
+	trieNode() { id = 0; value = 0;}
+	trieNode(const char& letter, const int& val) {
 		id = letter;
 		value = val;
 	}
 };
 
 struct trie {
-	node head = node(NULL,0);
+	trieNode* head;
+	trieNode* current;
+
+	trie() {
+		head = new trieNode;
+		current = head;
+	}
 };
 
 #endif

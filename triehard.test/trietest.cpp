@@ -3,10 +3,8 @@
 #include <iostream>
 
 void test_simple() {
-	trie test;
-	test.head = node(NULL, 0);
-	test.head.neighbors.push_back(node('k', 1));
-	if (not (test.head.neighbors[0].value == 1))
+	trie* test = new trie;
+	if (not (test->head->value == 0))
 		throw failed;
 }
 
