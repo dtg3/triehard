@@ -4,6 +4,7 @@
 #include "concepts.hpp"
 #include <string>
 #include <map>
+#include <iostream>
 
 struct trieNode {
 	char id;
@@ -31,11 +32,34 @@ struct trie {
 		delete current;
 	}
 
-	void add(const std::string word, const int& val) {}
+	void add(const std::string word, const int& val) {
+		trieNode* start = head;
+		for (unsigned int i = 0; i < word.length(); ++i) {
+			std::map<char,trieNode*>::const_iterator search = start->neighbors.find(word[i]);
+    		if(search == start->neighbors.end()) {
+    			std::cerr << "INSERT " << word[i] << "\n";
+    			start->neighbors[word[i]] = new trieNode(word[i], 0);
+    		}
+    		else {
+    			std::cerr << "FOUND " << word[i] << "\n";
+    		}
+
+    		std::cerr << "MOVE TO NEIGHBOR\n";
+    		start = start->neighbors[word[i]];
+		}
+	}
 	
 	void remove(const std::string word) {}
 	
 	bool find(const std::string word) {
+		trieNode* start = head;
+		for (unsigned int i = 0; i < word.length(); ++i) {
+			std::map<char,trieNode*>::const_iterator search = start->neighbors.find(word[i]);
+    		if(search == start->neighbors.end())
+    			return false;
+    		
+    		start = start->neighbors[word[i]];
+		}
 		return true;
 	}
 
