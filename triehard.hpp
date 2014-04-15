@@ -25,6 +25,11 @@ struct trie {
 		head = new trieNode;
 		current = head;
 	}
+
+	~trie() {
+		delete head;
+		delete current;
+	}
 };
 
 #endif
