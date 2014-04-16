@@ -7,29 +7,24 @@
 #include <iostream>
 
 struct trieNode {
-	char id;
 	int value;
 	std::map<char, trieNode*> neighbors;
 	
-	trieNode() { id = 0; value = 0;}
-	trieNode(const char& letter, const int& val) {
-		id = letter;
+	trieNode() { value = 0; }
+	trieNode(const int& val) {
 		value = val;
 	}
 };
 
 struct trie {
 	trieNode* head;
-	trieNode* current;
 
 	trie() {
 		head = new trieNode;
-		current = head;
 	}
 
 	~trie() {
 		delete head;
-		delete current;
 	}
 
 	void add(const std::string word, const int& val) {
@@ -38,7 +33,7 @@ struct trie {
 			std::map<char,trieNode*>::const_iterator search = start->neighbors.find(word[i]);
     		
     		if(search == start->neighbors.end()) {
-    			start->neighbors[word[i]] = new trieNode(word[i], 0);
+    			start->neighbors[word[i]] = new trieNode(0);
     		}
     		
     		start = start->neighbors[word[i]];
@@ -60,7 +55,7 @@ struct trie {
 	}
 
 	int& operator[] (const std::string word) {
-		return current->value;
+		return head->value;
 	}
 };
 
