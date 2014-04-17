@@ -41,19 +41,23 @@ struct trie {
     delete head;
   }
 
-  // ADD CAN FAIL IF IT'S ALREADY THERE. GO BOOL!
-  void add(const std::string& word, const int& val) {
+  bool add(const std::string& word, const int& val) {
     trieNode<char, int>* start = head;
+    bool exists = true;
+
     for (std::size_t i = 0; i < word.length(); ++i) {
       auto search = start->neighbors.find(word[i]);
       
       if(search == start->neighbors.end()) {
         // USE INSERT INSTEAD
         start->neighbors[word[i]] = new trieNode<char, int>;
+        exists = false;
       }
-    
+      
       start = start->neighbors[word[i]];
     }
+
+    return !exists;
   }
   
   void remove(const std::string& word) {}
