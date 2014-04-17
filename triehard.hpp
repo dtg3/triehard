@@ -58,19 +58,17 @@ struct trie {
   
   void remove(const std::string& word) {}
   
-  // SHOULD BE A COUNT return size_t
-  // 0 or 1 Present or not
-  bool find(const std::string& word) {
+  size_t count(const std::string& word) {
     trieNode<char, int>* start = head;
     for (std::size_t i = 0; i < word.length(); ++i) {
       
       auto search = start->neighbors.find(word[i]);
       if(search == start->neighbors.end())
-        return false;
+        return 0;
       
       start = start->neighbors[word[i]];
     }
-    return true;
+    return 1;
   }
 
   int* operator[] (const std::string word) {
