@@ -11,9 +11,13 @@ struct trieNode {
 	U* value;
 	std::map<T, trieNode<T, U>* > neighbors;
 	
-	trieNode() { value = 0; }
+	trieNode() { value = NULL; }
 	trieNode(const U& val) {
 		value = val;
+	}
+
+	~trieNode() {
+		delete value;
 	}
 
 	U* getValue() {
