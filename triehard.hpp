@@ -14,6 +14,10 @@ struct trieNode {
 	trieNode(const int& val) {
 		value = val;
 	}
+
+	int* getValue() {
+		return &value;
+	}
 };
 
 struct trie {
@@ -54,8 +58,8 @@ struct trie {
 		return true;
 	}
 
-	int& operator[] (const std::string word) {
-		return head->value;
+	int* operator[] (const std::string word) {
+		return head->getValue();
 	}
 };
 
