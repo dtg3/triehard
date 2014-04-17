@@ -6,25 +6,26 @@
 #include <map>
 #include <iostream>
 
+template<typename T, typename U>
 struct trieNode {
-	int value;
-	std::map<char, trieNode*> neighbors;
+	U* value;
+	std::map<T, trieNode<T, U>* > neighbors;
 	
 	trieNode() { value = 0; }
-	trieNode(const int& val) {
+	trieNode(const U& val) {
 		value = val;
 	}
 
-	int* getValue() {
-		return &value;
+	U* getValue() {
+		return value;
 	}
 };
 
 struct trie {
-	trieNode* head;
+	trieNode<char, int>* head;
 
 	trie() {
-		head = new trieNode;
+		head = new trieNode<char, int>;
 	}
 
 	~trie() {
@@ -32,12 +33,12 @@ struct trie {
 	}
 
 	void add(const std::string word, const int& val) {
-		trieNode* start = head;
+		trieNode<char, int>* start = head;
 		for (unsigned int i = 0; i < word.length(); ++i) {
-			std::map<char,trieNode*>::const_iterator search = start->neighbors.find(word[i]);
+			std::map< char,trieNode<char, int>* >::const_iterator search = start->neighbors.find(word[i]);
     		
     		if(search == start->neighbors.end()) {
-    			start->neighbors[word[i]] = new trieNode(0);
+    			start->neighbors[word[i]] = new trieNode<char, int>;
     		}
     		
     		start = start->neighbors[word[i]];
@@ -47,9 +48,9 @@ struct trie {
 	void remove(const std::string word) {}
 	
 	bool find(const std::string word) {
-		trieNode* start = head;
+		trieNode<char, int>* start = head;
 		for (unsigned int i = 0; i < word.length(); ++i) {
-			std::map<char,trieNode*>::const_iterator search = start->neighbors.find(word[i]);
+			std::map< char,trieNode<char, int>* >::const_iterator search = start->neighbors.find(word[i]);
     		if(search == start->neighbors.end())
     			return false;
     		
