@@ -6,13 +6,15 @@
 #include <map>
 #include <iostream>
 
-template<typename T, typename U>
+// Template Params:
+// K, Key V, Value
+template<typename K, typename V>
 struct trieNode {
-	U* value;
-	std::map<T, trieNode<T, U>* > neighbors;
+	V* value;
+	std::map<K, trieNode<K, V>* > neighbors;
 	
 	trieNode() { value = NULL; }
-	trieNode(const U& val) {
+	trieNode(const V& val) {
 		value = val;
 	}
 
@@ -20,7 +22,7 @@ struct trieNode {
 		delete value;
 	}
 
-	U* getValue() {
+	V* getValue() {
 		return value;
 	}
 };
