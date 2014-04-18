@@ -49,8 +49,7 @@ struct trie {
       auto search = start->neighbors.find(word[i]);
       
       if(search == start->neighbors.end()) {
-        // USE INSERT INSTEAD
-        start->neighbors[word[i]] = new trieNode<char, int>;
+        start->neighbors.insert(std::make_pair(word[i], new trieNode<char, int>));
         exists = false;
       }
       
