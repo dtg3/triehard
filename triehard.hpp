@@ -50,6 +50,9 @@ struct trie {
       start = start->neighbors[word[i]];
     }
 
+    if (!exists)
+     start->value = new V(val); 
+
     return !exists;
   }
   
