@@ -17,10 +17,8 @@ struct trieNode {
   V* value;
   std::map<K, trieNode<K, V>* > neighbors;
   
-  trieNode() { value = NULL; }
-  trieNode(const V& val) {
-    value = val;
-  }
+  trieNode(): value(NULL), neighbors() {}
+  trieNode(const V& val) : value(val) {}
 
   ~trieNode() {
     delete value;
