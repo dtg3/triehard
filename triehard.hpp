@@ -29,9 +29,7 @@ template<typename K, typename V>
 struct trie {
   trieNode< Value_type<K>, V >* head;
 
-  trie() {
-    head = new trieNode< Value_type<K>, V >;
-  }
+  trie(): head(new trieNode< Value_type<K>, V >) {}
 
   ~trie() {
     delete head;
