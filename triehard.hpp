@@ -27,11 +27,8 @@ struct trieNode {
   }
 };
 
-//MAKE TEMPLATE
 template<typename K, typename V>
 struct trie {
-  // GET VALUE TYPE OF STRING which is Char
-  // NEEDS TO BE A VALUE TYPE
   trieNode< Value_type<K>, V >* head;
 
   trie() {
