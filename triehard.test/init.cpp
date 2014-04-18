@@ -3,7 +3,7 @@
 #include <iostream>
 
 void trie_init() {
-	trie* test = new trie;
+	trie<std::string, int>* test = new trie<std::string, int>;
 	std::cerr << "TRIE CREATION\n";
 	if (not (test->head->value == NULL))
 		throw failed;

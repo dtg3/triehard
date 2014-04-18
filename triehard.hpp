@@ -28,28 +28,29 @@ struct trieNode {
 };
 
 //MAKE TEMPLATE
+template<typename K, typename V>
 struct trie {
   // GET VALUE TYPE OF STRING which is Char
   // NEEDS TO BE A VALUE TYPE
-  trieNode<char, int>* head;
+  trieNode< Value_type<K>, V >* head;
 
   trie() {
-    head = new trieNode<char, int>;
+    head = new trieNode< Value_type<K>, V >;
   }
 
   ~trie() {
     delete head;
   }
 
-  bool add(const std::string& word, const int& val) {
-    trieNode<char, int>* start = head;
+  bool add(const K& word, const V& val) {
+    trieNode< Value_type<K>, V >* start = head;
     bool exists = true;
 
     for (std::size_t i = 0; i < word.length(); ++i) {
       auto search = start->neighbors.find(word[i]);
       
       if(search == start->neighbors.end()) {
-        start->neighbors.insert(std::make_pair(word[i], new trieNode<char, int>));
+        start->neighbors.insert(std::make_pair(word[i], new trieNode< Value_type<K>, V >));
         exists = false;
       }
       
@@ -59,10 +60,10 @@ struct trie {
     return !exists;
   }
   
-  void remove(const std::string& word) {}
+  void remove(const K& word) {}
   
-  size_t count(const std::string& word) {
-    trieNode<char, int>* start = head;
+  size_t count(const K& word) {
+    trieNode< Value_type<K>, V >* start = head;
     for (std::size_t i = 0; i < word.length(); ++i) {
       
       auto search = start->neighbors.find(word[i]);
@@ -74,7 +75,7 @@ struct trie {
     return 1;
   }
 
-  int* operator[] (const std::string word) {
+  int* operator[] (const K& word) {
     return head->value;
   }
 };
