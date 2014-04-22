@@ -38,7 +38,7 @@ struct trie {
     trieNode< Value_type<K>, V >* start = head;
     bool exists = true;
 
-    for (std::size_t i = 0; i < word.length(); ++i) {
+    for (std::size_t i = 0; word[i] != '\0'; ++i) {
       auto search = start->neighbors.find(word[i]);
       
       if(search == start->neighbors.end()) {
@@ -59,7 +59,7 @@ struct trie {
   
   size_t count(const K& word) {
     trieNode< Value_type<K>, V >* start = head;
-    for (std::size_t i = 0; i < word.length(); ++i) {
+    for (std::size_t i = 0; word[i] != '\0'; ++i) {
       
       auto search = start->neighbors.find(word[i]);
       if(search == start->neighbors.end())
