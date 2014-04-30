@@ -4,7 +4,7 @@
 
 void trie_insert_count() {
   trie<std::string, int>* test = new trie<std::string, int>;
-  test->add("foo", 10);
+  test->insert("foo", 10);
   if (not (test->count("foo") == 1))
     throw failed;
 

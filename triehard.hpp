@@ -34,7 +34,15 @@ struct trie {
     delete head;
   }
 
-  bool add(const K& word, const V& val) {
+  //Add a copy constructor and move constructor
+  // Copy for the nodes as well
+
+  // Forward Iterators for input
+  // Read input for trie insertion that takes a range of iterators (first and last)
+
+  // split up insert and branch creation
+
+  bool insert(const K& word, const V& val) {
     trieNode< Value_type<K>, V >* start = head;
     bool exists = true;
 
