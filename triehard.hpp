@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <list>
 
 //LATER...
 //TRINODE BASE and TRINODE
@@ -13,10 +14,10 @@
 // K, Key V, Value
 template<typename K, typename V>
 struct trieNode {
-  V* value;
+  std::list<V> value;
   std::map<K, trieNode<K, V>* > neighbors;
   
-  trieNode(): value(NULL), neighbors() {}
+  trieNode(): value(), neighbors() {}
   trieNode(const V& val) : value(val) {}
 
   ~trieNode() {
@@ -58,7 +59,7 @@ struct trie {
     }
 
     if (!exists)
-     start->value = new V(val); 
+     start->value.push_back(val); 
 
     return !exists;
   }

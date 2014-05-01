@@ -5,7 +5,7 @@
 void trie_init() {
   trie<std::string, int>* test = new trie<std::string, int>;
   std::cerr << "TRIE CREATION\n";
-  if (not (test->head->value == NULL))
+  if (not (test->head->value.empty()))
     throw failed;
 }
 
