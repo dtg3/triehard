@@ -16,13 +16,6 @@ template<typename K, typename V>
 struct trieNode {
   std::list<V> value;
   std::map<K, trieNode<K, V>* > neighbors;
-  
-  trieNode(): value(), neighbors() {}
-  trieNode(const V& val) : value(val) {}
-
-  ~trieNode() {
-    delete value;
-  }
 };
 
 template<typename K, typename V>
@@ -42,6 +35,8 @@ struct trie {
   // Read input for trie insertion that takes a range of iterators (first and last)
 
   // split up insert and branch creation
+
+  // look at map interface
 
   bool insert(const K& word, const V& val) {
     trieNode< Value_type<K>, V >* start = head;
@@ -79,7 +74,7 @@ struct trie {
     return 1;
   }
 
-  int* operator[] (const K& word) {
+  V* operator[] (const K& word) {
     return head->value;
   }
 };
