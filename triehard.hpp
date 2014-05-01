@@ -42,12 +42,11 @@ struct trie {
   bool insert(const K& word, const V& val) {
     trieNode< Value_type<K>, V >* start = buildBranches(word);
 
-    std::cerr << "TEST\n";
-
     if (!(start->value.empty()))
       return false;
 
     start->value.push_back(val); 
+    std::cerr << start->value.front() << "\n";
     return true;
   }
   
@@ -66,7 +65,7 @@ struct trie {
     return 1;
   }
 
-  V* operator[] (const K& word) {
+  V* fetch(const K& word) {
     trieNode< Value_type<K>, V >* start = head;
     for (std::size_t i = 0; word[i] != '\0'; ++i) {
       
@@ -77,7 +76,7 @@ struct trie {
       start = start->neighbors[word[i]];
     }
 
-    return head->value.front();
+    return &(start->value.front());
   }
 
   private:
