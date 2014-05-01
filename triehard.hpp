@@ -6,6 +6,7 @@
 #include <map>
 #include <iostream>
 #include <list>
+#include <iostream> // FOR TESTING ONLY
 
 //LATER...
 //TRINODE BASE and TRINODE
@@ -39,24 +40,15 @@ struct trie {
   // look at map interface
 
   bool insert(const K& word, const V& val) {
-    trieNode< Value_type<K>, V >* start = head;
-    bool exists = true;
+    trieNode< Value_type<K>, V >* start = buildBranches(word);
 
-    for (std::size_t i = 0; word[i] != '\0'; ++i) {
-      auto search = start->neighbors.find(word[i]);
-      
-      if(search == start->neighbors.end()) {
-        start->neighbors.insert(std::make_pair(word[i], new trieNode< Value_type<K>, V >));
-        exists = false;
-      }
-      
-      start = start->neighbors[word[i]];
-    }
+    std::cerr << "TEST\n";
 
-    if (!exists)
-     start->value.push_back(val); 
+    if (!(start->value.empty()))
+      return false;
 
-    return !exists;
+    start->value.push_back(val); 
+    return true;
   }
   
   void remove(const K& word) {}
@@ -77,6 +69,23 @@ struct trie {
   V* operator[] (const K& word) {
     return head->value;
   }
+
+  private:
+    trieNode< Value_type<K>, V >* buildBranches(const K& word) {
+      trieNode< Value_type<K>, V >* start = head;
+
+      for (std::size_t i = 0; word[i] != '\0'; ++i) {
+        auto search = start->neighbors.find(word[i]);
+        
+        if(search == start->neighbors.end()) {
+          start->neighbors.insert(std::make_pair(word[i], new trieNode< Value_type<K>, V >));
+          std::cerr << "Insert: " << word[i] << "\n";
+        }
+        start = start->neighbors[word[i]];
+      }
+      
+      return start;
+    }
 };
 
 #endif
