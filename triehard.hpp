@@ -67,7 +67,17 @@ struct trie {
   }
 
   V* operator[] (const K& word) {
-    return head->value;
+    trieNode< Value_type<K>, V >* start = head;
+    for (std::size_t i = 0; word[i] != '\0'; ++i) {
+      
+      auto search = start->neighbors.find(word[i]);
+      if(search == start->neighbors.end())
+        return NULL;
+      
+      start = start->neighbors[word[i]];
+    }
+
+    return head->value.front();
   }
 
   private:
@@ -83,7 +93,7 @@ struct trie {
         }
         start = start->neighbors[word[i]];
       }
-      
+
       return start;
     }
 };

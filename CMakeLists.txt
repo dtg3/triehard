@@ -35,7 +35,8 @@ endmacro()
 
 # Add a test suite.
 add_unit_test(triehard init)
-add_unit_test(triehard insert_count)
+add_unit_test(triehard insert)
+add_unit_test(triehard count)
 
 
 # ---------------------------------------------------------------------------- #
