@@ -35,8 +35,6 @@ struct trie {
   // Forward Iterators for input
   // Read input for trie insertion that takes a range of iterators (first and last)
 
-  // split up insert and branch creation
-
   // look at map interface
 
   bool insert(const K& word, const V& val) {
