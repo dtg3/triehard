@@ -2,7 +2,7 @@
 #include "test.hpp"
 #include <iostream>
 
-void trie_insert() {
+void trie_erase() {
   trie<std::string, int>* test = new trie<std::string, int>;
   
   if (not (test->insert("food", 40) == true))
@@ -15,6 +15,6 @@ void trie_insert() {
 
 int main() {
   int err = 0;
-  err += test(trie_insert);
+  err += test(trie_erase);
   return err;
 }
