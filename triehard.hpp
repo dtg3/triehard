@@ -15,12 +15,14 @@
 // Template Params:
 // K, Key V, Value
 template<typename K, typename V>
+  requires Equality_comparable<K>()
 struct trieNode {
   std::list<V> value;
   std::map<K, trieNode<K, V>* > neighbors;
 };
 
 template<typename K, typename V>
+  requires Equality_comparable< Value_type<K> >()
 struct trie {
   trieNode< Value_type<K>, V >* head;
 
