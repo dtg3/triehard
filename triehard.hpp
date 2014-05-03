@@ -44,11 +44,26 @@ struct trie {
       return false;
 
     start->value.push_back(val); 
-    std::cerr << start->value.front() << "\n";
     return true;
   }
   
-  void remove(const K& word) {}
+  bool remove(const K& word) {
+    trieNode< Value_type<K>, V >* start = head;
+    for (std::size_t i = 0; word[i] != '\0'; ++i) {
+      
+      auto search = start->neighbors.find(word[i]);
+      if(search == start->neighbors.end())
+        return false;
+      
+      start = start->neighbors[word[i]];
+    }
+
+    if (start->value.empty())
+      return false;
+    
+    start->value.clear();
+    return true;
+  }
   
   size_t count(const K& word) {
     trieNode< Value_type<K>, V >* start = head;
@@ -84,10 +99,9 @@ struct trie {
       for (std::size_t i = 0; word[i] != '\0'; ++i) {
         auto search = start->neighbors.find(word[i]);
         
-        if(search == start->neighbors.end()) {
+        if(search == start->neighbors.end())
           start->neighbors.insert(std::make_pair(word[i], new trieNode< Value_type<K>, V >));
-          std::cerr << "Insert: " << word[i] << "\n";
-        }
+
         start = start->neighbors[word[i]];
       }
 

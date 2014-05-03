@@ -38,6 +38,7 @@ add_unit_test(triehard init)
 add_unit_test(triehard insert)
 add_unit_test(triehard count)
 add_unit_test(triehard fetch)
+add_unit_test(triehard remove)
 
 
 # ---------------------------------------------------------------------------- #
