@@ -34,18 +34,21 @@ struct trie {
   //Add a copy constructor and move constructor
   // Copy for the nodes as well
 
-  // Forward Iterators for input
-  // Read input for trie insertion that takes a range of iterators (first and last)
-
   // look at map interface
 
   bool insert(const K& word, const V& val) {
-    trieNode< Value_type<K>, V >* start = buildBranches(word);
+    return insert(std::begin(word), std::end(word), val);
+  }
+
+  template<typename I>
+    requires origin::Forward_iterator<I>()
+  bool insert(I first, I last, const V& val) {
+    trieNode< Value_type<K>, V >* start = buildBranches(first, last);
 
     if (!(start->value.empty()))
       return false;
 
-    start->value.push_back(val); 
+    start->value.push_back(val);
     return true;
   }
   
@@ -95,18 +98,20 @@ struct trie {
   }
 
   private:
-    trieNode< Value_type<K>, V >* buildBranches(const K& word) {
+    template<typename I>
+      requires origin::Forward_iterator<I>()
+    trieNode< Value_type<K>, V >* buildBranches(I first, I last) {
       trieNode< Value_type<K>, V >* start = head;
 
-      for (std::size_t i = 0; word[i] != '\0'; ++i) {
-        auto search = start->neighbors.find(word[i]);
+      while (first != last) {
+        auto search = start->neighbors.find(*first);
         
         if(search == start->neighbors.end())
-          start->neighbors.insert(std::make_pair(word[i], new trieNode< Value_type<K>, V >));
+          start->neighbors.insert(std::make_pair(*first, new trieNode< Value_type<K>, V >));
 
-        start = start->neighbors[word[i]];
+        start = start->neighbors[*first];
+        ++first;
       }
-
       return start;
     }
 };
