@@ -24,7 +24,7 @@ template<typename K, typename V>
   requires Equality_comparable< Value_type<K> >()
 struct trie {
   trieNode< Value_type<K>, V >* head;
-
+  size_t val_count;
   trie(): head(new trieNode< Value_type<K>, V >) {}
 
   ~trie() {
@@ -49,7 +49,22 @@ struct trie {
       return false;
 
     start->value.push_back(val);
+    ++val_count;
     return true;
+  }
+
+  V* fetch(const K& word) {
+    trieNode< Value_type<K>, V >* start = head;
+    for (std::size_t i = 0; word[i] != '\0'; ++i) {
+      
+      auto search = start->neighbors.find(word[i]);
+      if(search == start->neighbors.end())
+        return NULL;
+      
+      start = start->neighbors[word[i]];
+    }
+
+    return &(start->value.front());
   }
   
   bool remove(const K& word) {
@@ -67,6 +82,7 @@ struct trie {
       return false;
     
     start->value.clear();
+    --val_count;
     return true;
   }
   
@@ -83,18 +99,12 @@ struct trie {
     return 1;
   }
 
-  V* fetch(const K& word) {
-    trieNode< Value_type<K>, V >* start = head;
-    for (std::size_t i = 0; word[i] != '\0'; ++i) {
-      
-      auto search = start->neighbors.find(word[i]);
-      if(search == start->neighbors.end())
-        return NULL;
-      
-      start = start->neighbors[word[i]];
-    }
+  size_t size() {
+    return val_count;
+  }
 
-    return &(start->value.front());
+  bool empty() {
+    return (val_count == 0);
   }
 
   private:
