@@ -66,8 +66,8 @@ struct trie {
 
     return &(start->value.front());
   }
-  
-  bool remove(const K& word) {
+
+  bool erase(const K& word) {
     trieNode< Value_type<K>, V >* start = head;
     for (std::size_t i = 0; word[i] != '\0'; ++i) {
       

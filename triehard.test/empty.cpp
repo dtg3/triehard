@@ -11,7 +11,7 @@ void trie_empty() {
   if (not (test->empty() == false))
   	throw failed;
 
-  test->remove("foo");
+  test->erase("foo");
   if (not (test->empty() == true))
     throw failed;
 }

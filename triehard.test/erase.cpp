@@ -7,9 +7,9 @@ void trie_erase() {
   
   if (not (test->insert("food", 40) == true))
     throw failed;
-  if (not (test->remove("food") == true))
+  if (not (test->erase("food") == true))
     throw failed;
-  if (not (test->remove("food") == false))
+  if (not (test->erase("food") == false))
     throw failed;
 }
 

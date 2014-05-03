@@ -15,11 +15,11 @@ void trie_size() {
   if (not (test->size() == 2))
     throw failed;
 
-  test->remove("foo");
+  test->erase("foo");
   if (not (test->size() == 1))
     throw failed;
 
-  test->remove("food");
+  test->erase("food");
   if (not (test->size() == 0))
     throw failed;
 }
