@@ -7,39 +7,49 @@
 #include <iostream>
 #include <list>
 #include <origin/sequence/concepts.hpp>
-#include <iostream> // FOR TESTING ONLY
 
 //LATER...
 //TRINODE BASE and TRINODE
+//Add a copy constructor and move constructor
+//Copy for the nodes as well
+//Look at map interface
 
-// Template Params:
-// K, Key V, Value
+/*
+  trieNode
+  Storage node utilized in trie structure
+*/
 template<typename K, typename V>
 struct trieNode {
   std::list<V> value;
   std::map<K, trieNode<K, V>* > neighbors;
 };
 
+/*
+  trie
+  trie structure for mapping keys to values
+  current support is for string and char based keys
+*/
 template<typename K, typename V>
   requires Equality_comparable< Value_type<K> >()
 struct trie {
+  // Root trie node
   trieNode< Value_type<K>, V >* head;
+  
+  // Count of values contained within trie
   size_t val_count;
+
   trie(): head(new trieNode< Value_type<K>, V >) {}
 
   ~trie() {
     delete head;
   }
 
-  //Add a copy constructor and move constructor
-  // Copy for the nodes as well
-
-  // look at map interface
-
+  // Add key value pair to trie
   bool insert(const K& word, const V& val) {
     return insert(std::begin(word), std::end(word), val);
   }
 
+  // Add key value part to trie via iterators
   template<typename I>
     requires origin::Forward_iterator<I>()
   bool insert(I first, I last, const V& val) {
@@ -53,6 +63,8 @@ struct trie {
     return true;
   }
 
+  // Retrieval of values from trie based on key
+  //   Used in place of [] operator due to time constraints
   V* fetch(const K& word) {
     trieNode< Value_type<K>, V >* start = head;
     for (std::size_t i = 0; word[i] != '\0'; ++i) {
@@ -67,6 +79,7 @@ struct trie {
     return &(start->value.front());
   }
 
+  // Remove value from trie
   bool erase(const K& word) {
     trieNode< Value_type<K>, V >* start = head;
     for (std::size_t i = 0; word[i] != '\0'; ++i) {
@@ -86,6 +99,7 @@ struct trie {
     return true;
   }
   
+  // Determine if key is associated with a value
   size_t count(const K& word) {
     trieNode< Value_type<K>, V >* start = head;
     for (std::size_t i = 0; word[i] != '\0'; ++i) {
@@ -99,15 +113,19 @@ struct trie {
     return 1;
   }
 
+  // Return number of values in trie
   size_t size() {
     return val_count;
   }
 
+  // Return whether trie contains values or is empty
   bool empty() {
     return (val_count == 0);
   }
 
+  // Helper functions
   private:
+    // Builds the branches necessary for an insert into the trie
     template<typename I>
       requires origin::Forward_iterator<I>()
     trieNode< Value_type<K>, V >* buildBranches(I first, I last) {
