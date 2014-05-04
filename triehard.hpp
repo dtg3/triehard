@@ -45,12 +45,12 @@ struct trie {
     delete head;
   }
 
-  // Add key value pair to trie
+  // Add string based key value pair to trie
   bool insert(const std::string& word, const V& val) {
     return insert(std::begin(word), std::end(word), val);
   }
 
-  // Add key value pair to trie
+  // Add char* based key value pair to trie
   bool insert(const char* word, const V& val) {
     return insert(&word[0], &word[strlen(word)], val);
   }
