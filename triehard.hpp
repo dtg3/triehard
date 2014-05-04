@@ -3,6 +3,7 @@
 
 #include "concepts.hpp"
 #include <string>
+#include <string.h>
 #include <map>
 #include <iostream>
 #include <list>
@@ -45,8 +46,13 @@ struct trie {
   }
 
   // Add key value pair to trie
-  bool insert(const K& word, const V& val) {
+  bool insert(const std::string& word, const V& val) {
     return insert(std::begin(word), std::end(word), val);
+  }
+
+  // Add key value pair to trie
+  bool insert(const char* word, const V& val) {
+    return insert(&word[0], &word[strlen(word)], val);
   }
 
   // Add key value part to trie via iterators
