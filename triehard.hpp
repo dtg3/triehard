@@ -69,31 +69,26 @@ struct trie {
     return true;
   }
 
-  /*std::vector<K>& prefix(const K& word) {
-    trieNode< Value_type<K>, V >* start = head;
-    for (std::size_t i = 0; word[i] != '\0'; ++i) {
-      
-      auto search = start->neighbors.find(word[i]);
-      if(search == start->neighbors.end())
-      
-      start = start->neighbors[word[i]];
-    }
-  }*/
+  // Find string based key in trie
+  V* fetch(const std::string& word) {
+    return fetch(std::begin(word), std::end(word));
+  }
+
+  // Find char* based key in trie
+  V* fetch(const char* word) {
+    return fetch(&word[0], &word[strlen(word)]);
+  }
 
   // Retrieval of values from trie based on key
   //   Used in place of [] operator due to time constraints
-  V* fetch(const K& word) {
-    trieNode< Value_type<K>, V >* start = head;
-    for (std::size_t i = 0; word[i] != '\0'; ++i) {
-      
-      auto search = start->neighbors.find(word[i]);
-      if(search == start->neighbors.end())
-        return NULL;
-      
-      start = start->neighbors[word[i]];
-    }
-
-    return &(start->value.front());
+  template<typename I>
+    requires origin::Forward_iterator<I>()
+  V* fetch(I first, I last) {
+    trieNode< Value_type<K>, V >* start = findNode(first, last);
+    if(start != NULL)
+      return &(start->value.front());
+    else
+      return NULL;
   }
 
   // Remove value from trie
