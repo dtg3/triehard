@@ -91,19 +91,22 @@ struct trie {
       return NULL;
   }
 
-  // Remove value from trie
-  bool erase(const K& word) {
-    trieNode< Value_type<K>, V >* start = head;
-    for (std::size_t i = 0; word[i] != '\0'; ++i) {
-      
-      auto search = start->neighbors.find(word[i]);
-      if(search == start->neighbors.end())
-        return false;
-      
-      start = start->neighbors[word[i]];
-    }
+  // Erase value based on string key in trie
+  bool erase(const std::string& word) {
+    return erase(std::begin(word), std::end(word));
+  }
 
-    if (start->value.empty())
+  // Erase value based on char* key in trie
+  bool erase(const char* word) {
+    return erase(&word[0], &word[strlen(word)]);
+  }
+
+  // Remove value from trie
+  template<typename I>
+    requires origin::Forward_iterator<I>()
+  bool erase(I first, I last) {
+    trieNode< Value_type<K>, V >* start = findNode(first, last);
+    if (start == NULL || start->value.empty())
       return false;
     
     start->value.clear();
