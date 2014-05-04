@@ -45,6 +45,9 @@ struct trie {
     delete head;
   }
 
+  /*
+    INSERT FUNCTIONS
+  */
   // Add string based key value pair to trie
   bool insert(const std::string& word, const V& val) {
     return insert(std::begin(word), std::end(word), val);
@@ -69,6 +72,9 @@ struct trie {
     return true;
   }
 
+  /*
+    FETCH FUNCTIONS
+  */
   // Fetch value based on string key in trie
   V* fetch(const std::string& word) {
     return fetch(std::begin(word), std::end(word));
@@ -91,6 +97,9 @@ struct trie {
       return NULL;
   }
 
+  /*
+    ERASE FUNCTIONS
+  */
   // Erase value based on string key in trie
   bool erase(const std::string& word) {
     return erase(std::begin(word), std::end(word));
@@ -114,6 +123,9 @@ struct trie {
     return true;
   }
 
+  /*
+    COUNT FUNCTIONS
+  */
   // Find string based key in trie
   size_t count(const std::string& word) {
     return count(std::begin(word), std::end(word));
