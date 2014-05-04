@@ -126,9 +126,6 @@ struct trie {
     requires origin::Forward_iterator<I>()
   size_t count(I first, I last) {
     trieNode< Value_type<K>, V >* start = findNode(first, last);
-    if (start != NULL) {
-      std::cout << start->value.front() << "\n";
-    }
     return (start != NULL && !(start->value.empty()));
   }
 
