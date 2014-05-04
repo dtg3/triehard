@@ -69,6 +69,17 @@ struct trie {
     return true;
   }
 
+  /*std::vector<K>& prefix(const K& word) {
+    trieNode< Value_type<K>, V >* start = head;
+    for (std::size_t i = 0; word[i] != '\0'; ++i) {
+      
+      auto search = start->neighbors.find(word[i]);
+      if(search == start->neighbors.end())
+      
+      start = start->neighbors[word[i]];
+    }
+  }*/
+
   // Retrieval of values from trie based on key
   //   Used in place of [] operator due to time constraints
   V* fetch(const K& word) {
@@ -104,19 +115,23 @@ struct trie {
     --val_count;
     return true;
   }
+
+  // Find string based key in trie
+  size_t count(const std::string& word) {
+    return count(std::begin(word), std::end(word));
+  }
+
+  // Find char* based key in trie
+  size_t count(const char* word) {
+    return count(&word[0], &word[strlen(word)]);
+  }
   
   // Determine if key is associated with a value
-  size_t count(const K& word) {
-    trieNode< Value_type<K>, V >* start = head;
-    for (std::size_t i = 0; word[i] != '\0'; ++i) {
-      
-      auto search = start->neighbors.find(word[i]);
-      if(search == start->neighbors.end())
-        return 0;
-      
-      start = start->neighbors[word[i]];
-    }
-    return 1;
+  template<typename I>
+    requires origin::Forward_iterator<I>()
+  size_t count(I first, I last) {
+    trieNode< Value_type<K>, V >* start = findNode(first, last);
+    return (start != NULL);
   }
 
   // Return number of values in trie
@@ -142,6 +157,24 @@ struct trie {
         
         if(search == start->neighbors.end())
           start->neighbors.insert(std::make_pair(*first, new trieNode< Value_type<K>, V >));
+
+        start = start->neighbors[*first];
+        ++first;
+      }
+      return start;
+    }
+
+    // Determines if a node exists along a path given two iterators
+    template<typename I>
+      requires origin::Forward_iterator<I>()
+    trieNode< Value_type<K>, V >* findNode(I first, I last) {
+      trieNode< Value_type<K>, V >* start = head;
+
+      while (first != last) {
+        auto search = start->neighbors.find(*first);
+        
+        if(search == start->neighbors.end())
+          return NULL;
 
         start = start->neighbors[*first];
         ++first;
