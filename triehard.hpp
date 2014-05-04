@@ -69,12 +69,12 @@ struct trie {
     return true;
   }
 
-  // Find string based key in trie
+  // Fetch value based on string key in trie
   V* fetch(const std::string& word) {
     return fetch(std::begin(word), std::end(word));
   }
 
-  // Find char* based key in trie
+  // Fetch value based on char* key in trie
   V* fetch(const char* word) {
     return fetch(&word[0], &word[strlen(word)]);
   }
